@@ -4,15 +4,6 @@ import type { VFile } from "vfile";
 import type { AstroConfig } from "astro";
 import { isRemoteAllowed } from "astro/assets/utils";
 
-declare module "vfile" {
-  interface DataMap {
-    astro?: {
-      localImagePaths?: string[];
-      remoteImagePaths?: string[];
-    };
-  }
-}
-
 function withoutKeysCaseInsensitive<T extends Record<string, unknown>>(
   obj: T,
   keysToRemove: Iterable<string>,

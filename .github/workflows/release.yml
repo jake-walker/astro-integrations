@@ -29,7 +29,7 @@ jobs:
       - name: Publish ghost-loader
         if: ${{ steps.release.outputs['ghost-loader--release_created'] == 'true' }}
         working-directory: ghost-loader
-        run: deno publish
+        run: deno publish --no-check
 
       - name: Publish git-repo-loader
         if: ${{ steps.release.outputs['git-repo-loader--release_created'] == 'true' }}
