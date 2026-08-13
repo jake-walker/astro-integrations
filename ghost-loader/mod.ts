@@ -1,5 +1,8 @@
 /**
  * This module contains the main Astro content collection loader for the Ghost API.
+ * It stores the fully processed Ghost post body in Astro's rendered content and
+ * adds a `basicHtml` field to each post for feeds and other contexts where code
+ * highlighting or image optimization are not wanted.
  *
  * @example
  * ```ts
@@ -9,7 +12,13 @@
  *  ghostPosts: defineCollection({
  *    loader: ghostLoader({
  *      url: "https://ghost.example.com",
- *      contentApiKey: import.meta.env.GHOST_CONTENT_API_KEY
+ *      contentApiKey: import.meta.env.GHOST_CONTENT_API_KEY,
+ *      anchorRewrite: {
+ *        hosts: {
+ *          "ghost.example.com": "example.com"
+ *        },
+ *        ref: "site"
+ *      }
  *    })
  *  })
  * };
@@ -26,6 +35,7 @@ import rehypeParse from "rehype-parse";
 import rehypeStringify from "rehype-stringify";
 import rehypeShiki from "@shikijs/rehype";
 import {
+  type AnchorRewriteOptions,
   rehypeAnchorRewrite,
   rehypeCollectImages,
   rehypeGhostVideoCard,
@@ -37,9 +47,19 @@ import type { Loader } from "astro/loaders";
 
 type ApiVersion = InstanceType<typeof TSGhostContentAPI>["version"];
 
-function createGhostBodyParser(opts?: AstroConfig) {
+type GhostLoaderOptions = {
+  url: string;
+  contentApiKey: string;
+  apiVersion?: ApiVersion;
+  anchorRewrite?: AnchorRewriteOptions;
+};
+
+function createGhostBodyParser(
+  opts?: AstroConfig,
+  anchorRewrite?: AnchorRewriteOptions,
+) {
   return unified().use(rehypeParse, { fragment: true })
-    .use(rehypeAnchorRewrite)
+    .use(rehypeAnchorRewrite, anchorRewrite)
     .use(rehypeCollectImages, opts?.image)
     .use(rehypeShiki, {
       themes: { light: "catppuccin-latte", dark: "catppuccin-mocha" },
@@ -49,9 +69,9 @@ function createGhostBodyParser(opts?: AstroConfig) {
     .use(rehypeStringify);
 }
 
-function createBasicGhostBodyParser() {
+function createBasicGhostBodyParser(anchorRewrite?: AnchorRewriteOptions) {
   return unified().use(rehypeParse, { fragment: true })
-    .use(rehypeAnchorRewrite)
+    .use(rehypeAnchorRewrite, anchorRewrite)
     .use(rehypeGhostVideoCard)
     .use(rehypeStringify);
 }
@@ -60,15 +80,19 @@ function createBasicGhostBodyParser() {
  * Create a new Astro content collection loader for Ghost posts.
  *
  * It fetches all available posts in publish date descending order.
+ * Post bodies are parsed twice: the main rendered content includes syntax
+ * highlighting and Astro image metadata, while `data.basicHtml` only applies
+ * lightweight Ghost-specific HTML cleanup.
  *
- * @param config Configuration for the loader. It is an object that must contain the URL to the Ghost instance, and a content API key found in the admin dashboard.
+ * @param config Configuration for the loader. It is an object that must contain the URL to the Ghost instance, and a content API key found in the admin dashboard. The optional `anchorRewrite` setting can rewrite matching link hosts and `ref` query parameters in both rendered HTML outputs.
  * @returns {Loader} A loader for use in an Astro content collection config.
  */
 export function ghostLoader({
   url,
   contentApiKey,
   apiVersion = "v6.0",
-}: { url: string; contentApiKey: string; apiVersion?: ApiVersion }): Loader {
+  anchorRewrite,
+}: GhostLoaderOptions): Loader {
   const client = new TSGhostContentAPI(url, contentApiKey, apiVersion);
 
   return {
@@ -77,8 +101,8 @@ export function ghostLoader({
     load: async (context) => {
       const { logger, parseData, store, config } = context;
 
-      const parser = createGhostBodyParser(config);
-      const basicParser = createBasicGhostBodyParser();
+      const parser = createGhostBodyParser(config, anchorRewrite);
+      const basicParser = createBasicGhostBodyParser(anchorRewrite);
 
       logger.info("Fetching posts from Ghost Content API");
 

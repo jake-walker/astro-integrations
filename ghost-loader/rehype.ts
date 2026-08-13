@@ -14,7 +14,20 @@ function withoutKeysCaseInsensitive<T extends Record<string, unknown>>(
   ) as Partial<T>;
 }
 
-export function rehypeAnchorRewrite() {
+export type AnchorRewriteOptions = {
+  /** Map source link hosts to replacement hosts. Hosts not in this map are left unchanged. */
+  hosts?: Record<string, string>;
+  /** Replace existing `ref` query parameter values. Links without `ref` are left unchanged. */
+  ref?: string;
+};
+
+/**
+ * Rewrite anchor hrefs using the provided options.
+ *
+ * By default this only normalizes parsed URLs and does not replace hosts or
+ * query parameter values.
+ */
+export function rehypeAnchorRewrite(options: AnchorRewriteOptions = {}) {
   return function (tree: Root) {
     visit(tree, "element", (node) => {
       if (node.tagName !== "a" && typeof node.properties.href !== "string") {
@@ -27,12 +40,14 @@ export function rehypeAnchorRewrite() {
 
       const ref = href.searchParams.get("ref");
 
-      if (ref !== null) {
-        href.searchParams.set("ref", "jakew.me");
+      if (ref !== null && options.ref !== undefined) {
+        href.searchParams.set("ref", options.ref);
       }
 
-      if (href.host === "ghost.jakew.me") {
-        href.host = "jakew.me";
+      const replacementHost = options.hosts?.[href.host];
+
+      if (replacementHost !== undefined) {
+        href.host = replacementHost;
       }
 
       node.properties.href = href.toString();

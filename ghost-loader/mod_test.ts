@@ -11,7 +11,8 @@ function postFixture(overrides: Record<string, unknown> = {}) {
     meta_title: null,
     meta_description: null,
     title: "Hello World",
-    html: '<p>Hello</p><img src="images/photo.jpg" width="120" height="80">',
+    html:
+      '<p>Hello <a href="https://ghost.example.com/post/?ref=old">link</a></p><img src="images/photo.jpg" width="120" height="80">',
     plaintext: "Hello",
     comment_id: null,
     feature_image: null,
@@ -103,11 +104,19 @@ Deno.test("ghostLoader stores entries that validate against its schema", async (
       throw new Error("Expected basic HTML to skip image optimization");
     }
 
+    if (
+      !parsed.basicHtml.includes(
+        'href="https://ghost.example.com/post/?ref=old"',
+      )
+    ) {
+      throw new Error("Expected basic HTML to preserve links by default");
+    }
+
     if (entries[0].filePath !== "https://ghost.example.com/hello-world/") {
       throw new Error(`Unexpected file path: ${entries[0].filePath}`);
     }
 
-    if (!entries[0].rendered?.html.includes("<p>Hello</p>")) {
+    if (!entries[0].rendered?.html.includes("Hello")) {
       throw new Error("Expected rendered HTML to contain the post body");
     }
 
@@ -117,6 +126,66 @@ Deno.test("ghostLoader stores entries that validate against its schema", async (
       )
     ) {
       throw new Error("Expected Ghost posts endpoint to be fetched");
+    }
+  } finally {
+    fetchMock.restore();
+  }
+});
+
+Deno.test("ghostLoader rewrites anchors when configured", async () => {
+  const fetchMock = mockFetchPages([
+    {
+      posts: [postFixture()],
+      meta: {
+        pagination: {
+          page: 1,
+          limit: "all",
+          pages: 1,
+          total: 1,
+          next: null,
+          prev: null,
+        },
+      },
+    },
+  ]);
+
+  try {
+    const entries = await loadEntries(
+      ghostLoader({
+        url: "https://ghost.example.com",
+        contentApiKey: "0123456789abcdef0123456789",
+        anchorRewrite: {
+          hosts: {
+            "ghost.example.com": "example.com",
+          },
+          ref: "rss",
+        },
+      }),
+      {
+        parseData<TData extends Record<string, unknown>>(
+          props: ParseDataOptions<TData>,
+        ): Promise<TData> {
+          return Promise.resolve(
+            z.parse(postsSchema, props.data) as unknown as TData,
+          );
+        },
+      } as Partial<LoaderContext>,
+    );
+
+    const parsed = z.parse(postsSchema, entries[0].data);
+
+    if (
+      !parsed.basicHtml?.includes('href="https://example.com/post/?ref=rss"')
+    ) {
+      throw new Error("Expected basic HTML to include rewritten link");
+    }
+
+    if (
+      !entries[0].rendered?.html.includes(
+        'href="https://example.com/post/?ref=rss"',
+      )
+    ) {
+      throw new Error("Expected rendered HTML to include rewritten link");
     }
   } finally {
     fetchMock.restore();
