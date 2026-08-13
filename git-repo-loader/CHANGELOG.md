@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.3](https://github.com/jake-walker/astro-integrations/compare/astro-git-repo-loader-v0.2.2...astro-git-repo-loader-v0.2.3) (2026-08-13)
+
+
+### Bug Fixes
+
+* **git-repo-loader:** allow missing push timestamps ([1c8505b](https://github.com/jake-walker/astro-integrations/commit/1c8505b7cd8084ce9fddf413b58feb8802c26f76))
+
 ## [0.2.2](https://github.com/jake-walker/astro-integrations/compare/astro-git-repo-loader-v0.2.1...astro-git-repo-loader-v0.2.2) (2026-08-13)
 
 
