@@ -1,0 +1,6 @@
+{
+  "name": "@jakew/astro-git-repo-loader",
+  "version": "0.1.1",
+  "license": "UNL",
+  "exports": "./mod.ts"
+}

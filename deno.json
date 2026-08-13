@@ -1,0 +1,9 @@
+{
+  "workspace": [
+    "ghost-loader",
+    "git-repo-loader"
+  ],
+  "imports": {
+    "astro": "npm:astro@^7.2.1"
+  }
+}
