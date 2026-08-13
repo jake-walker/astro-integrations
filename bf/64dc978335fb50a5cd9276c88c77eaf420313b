@@ -1,0 +1,28 @@
+.github/workflows/release.yml
+  h_2463f6ed1216b2 1-19
+  s_a1a575f75a79a1::t_2d896bb7eb0ec2 22,25,30,35
+  s_a1a575f75a79a1::t_0bfdd538adbc67 20-21,23-24,26-29,31-34,36-37
+.release-please-manifest.json
+  s_a1a575f75a79a1::t_0bfdd538adbc67 1-4
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "bf64dc978335fb50a5cd9276c88c77eaf420313b",
+  "prompts": {},
+  "humans": {
+    "h_2463f6ed1216b2": {
+      "author": "Jake Walker <hi@jakew.me>"
+    }
+  },
+  "sessions": {
+    "s_a1a575f75a79a1": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019ffc13-6ac5-70e0-8733-5c84ae2c2ff2",
+        "model": "gpt-5.5"
+      },
+      "human_author": "Jake Walker <hi@jakew.me>"
+    }
+  }
+}
