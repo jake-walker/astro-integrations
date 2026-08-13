@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.0](https://github.com/jake-walker/astro-integrations/compare/ghost-loader-v0.2.0...ghost-loader-v0.3.0) (2026-08-13)
+
+
+### Features
+
+* **ghost-loader:** add basic html render ([1a3f7d1](https://github.com/jake-walker/astro-integrations/commit/1a3f7d1796470c8d658ed39f1bdc3792d7f2a96a))
+
 ## [0.2.0](https://github.com/jake-walker/astro-integrations/compare/ghost-loader-v0.1.1...ghost-loader-v0.2.0) (2026-08-13)
 
 
