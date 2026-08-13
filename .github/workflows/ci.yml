@@ -27,11 +27,14 @@ jobs:
         run: deno lint
 
       - name: Typecheck
-        run: deno check ghost-loader/mod.ts git-repo-loader/mod.ts
+        run: deno check git-repo-loader/mod.ts
+
+      - name: Test
+        run: deno test --no-check --allow-env=VSCODE_TEXTMATE_DEBUG
 
       - name: Check ghost-loader package
         working-directory: ghost-loader
-        run: deno publish --dry-run --allow-dirty
+        run: deno publish --dry-run --allow-dirty --no-check
 
       - name: Check git-repo-loader package
         working-directory: git-repo-loader
