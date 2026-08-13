@@ -1,0 +1,24 @@
+git-repo-loader/schema.ts
+  s_a1a575f75a79a1::t_29872c86e46782 1-16
+git-repo-loader/mod.ts
+  s_a1a575f75a79a1::t_ae3cf0ae828702 30
+  s_a1a575f75a79a1::t_29872c86e46782 29
+  s_a1a575f75a79a1::t_ec17d7839fab85 54,104
+  s_a1a575f75a79a1::t_0d26506279da47 77,124
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "46043bd11d0c678ec4d6458344414fcf0ab9b52a",
+  "prompts": {},
+  "sessions": {
+    "s_a1a575f75a79a1": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019ffc13-6ac5-70e0-8733-5c84ae2c2ff2",
+        "model": "gpt-5.5"
+      },
+      "human_author": null
+    }
+  }
+}
