@@ -1,0 +1,37 @@
+name: Release
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  id-token: write
+  contents: write
+  pull-requests: write
+
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: googleapis/release-please-action@v4
+        id: release
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: actions/checkout@v4
+        if: ${{ steps.release.outputs.releases_created == 'true' }}
+
+      - uses: denoland/setup-deno@v2
+        if: ${{ steps.release.outputs.releases_created == 'true' }}
+        with:
+          deno-version: v2.x
+
+      - name: Publish ghost-loader
+        if: ${{ steps.release.outputs['ghost-loader--release_created'] == 'true' }}
+        working-directory: ghost-loader
+        run: deno publish
+
+      - name: Publish git-repo-loader
+        if: ${{ steps.release.outputs['git-repo-loader--release_created'] == 'true' }}
+        working-directory: git-repo-loader
+        run: deno publish
