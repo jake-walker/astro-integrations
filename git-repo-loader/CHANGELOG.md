@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.2](https://github.com/jake-walker/astro-integrations/compare/astro-git-repo-loader-v0.2.1...astro-git-repo-loader-v0.2.2) (2026-08-13)
+
+
+### Bug Fixes
+
+* **git-repo-loader:** coerce repository ids ([46043bd](https://github.com/jake-walker/astro-integrations/commit/46043bd11d0c678ec4d6458344414fcf0ab9b52a))
+
 ## [0.2.1](https://github.com/jake-walker/astro-integrations/compare/astro-git-repo-loader-v0.2.0...astro-git-repo-loader-v0.2.1) (2026-08-13)
 
 
