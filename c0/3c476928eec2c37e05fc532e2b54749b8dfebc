@@ -1,0 +1,40 @@
+.gitignore
+  h_2463f6ed1216b2 1-234
+ghost-loader/deno.json
+  h_2463f6ed1216b2 1-6
+deno.lock
+  h_2463f6ed1216b2 1-1793
+ghost-loader/mod.ts
+  h_2463f6ed1216b2 1-103
+deno.json
+  h_2463f6ed1216b2 1-9
+ghost-loader/rehype.ts
+  h_2463f6ed1216b2 1-135
+git-repo-loader/mod.ts
+  h_2463f6ed1216b2 1-140
+git-repo-loader/deno.json
+  h_2463f6ed1216b2 1-6
+ghost-loader/schema.ts
+  h_2463f6ed1216b2 1-111
+.vscode/settings.json
+  h_2463f6ed1216b2 1-4
+LICENSE
+  h_2463f6ed1216b2 1-24
+ghost-loader/package.json
+  h_2463f6ed1216b2 1-21
+README.md
+  h_2463f6ed1216b2 1-6
+git-repo-loader/package.json
+  h_2463f6ed1216b2 1-5
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "c03c476928eec2c37e05fc532e2b54749b8dfebc",
+  "prompts": {},
+  "humans": {
+    "h_2463f6ed1216b2": {
+      "author": "Jake Walker <hi@jakew.me>"
+    }
+  }
+}
