@@ -4,6 +4,14 @@ import { VFile } from "vfile";
 import type { AstroConfig } from "astro";
 import { isRemoteAllowed } from "astro/assets/utils";
 
+declare module "vfile" {
+  interface DataMap {
+    astro?: {
+      localImagePaths?: string[];
+      remoteImagePaths?: string[];
+    };
+  }
+}
 
 function withoutKeysCaseInsensitive<T extends Record<string, any>>(obj: T, keysToRemove: Iterable<string>): Partial<T> {
   const toRemove = new Set(Array.from(keysToRemove, (k) => k.toLowerCase()));
