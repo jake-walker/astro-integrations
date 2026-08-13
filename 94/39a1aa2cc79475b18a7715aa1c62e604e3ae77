@@ -1,0 +1,14 @@
+release-please-config.json
+  h_2463f6ed1216b2 1-26
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "9439a1aa2cc79475b18a7715aa1c62e604e3ae77",
+  "prompts": {},
+  "humans": {
+    "h_2463f6ed1216b2": {
+      "author": "Jake Walker <hi@jakew.me>"
+    }
+  }
+}
