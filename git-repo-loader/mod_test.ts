@@ -109,3 +109,28 @@ Deno.test("forgejoRepoLoader stores entries that validate against its schema", a
     fetchMock.restore();
   }
 });
+
+Deno.test("githubRepoLoader allows repositories without a pushed_at timestamp", async () => {
+  const fetchMock = mockFetchPages([
+    [repoFixture({ pushed_at: undefined })],
+    [],
+  ]);
+
+  try {
+    const entries = await loadEntries(
+      githubRepoLoader({ username: "jake-walker" }),
+    );
+
+    if (entries.length !== 1) {
+      throw new Error(`Expected 1 entry, got ${entries.length}`);
+    }
+
+    const parsed = z.parse(repoSchema, entries[0].data);
+
+    if (parsed.pushed_at !== null) {
+      throw new Error(`Expected missing pushed_at to parse as null`);
+    }
+  } finally {
+    fetchMock.restore();
+  }
+});
