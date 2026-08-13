@@ -79,7 +79,7 @@ export function rehypeGhostVideoCard() {
   };
 }
 
-// Source: Astro - rehype-images.ts (https://vh7.uk/view/QwSU)
+// Based on: Astro - rehype-images.ts (https://vh7.uk/QwSU)
 export function rehypeImages() {
   return function (tree: Root, file: VFile) {
     if (

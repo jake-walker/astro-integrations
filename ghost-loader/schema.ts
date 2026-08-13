@@ -80,6 +80,7 @@ export const postsSchema = z.object({
   ...ghostMetadataSchema.shape,
   title: z.string(),
   html: z.string().catch(""),
+  basicHtml: z.string().optional(),
   plaintext: z.string().nullish(),
   comment_id: z.string().nullable(),
   feature_image: z.string().nullable(),

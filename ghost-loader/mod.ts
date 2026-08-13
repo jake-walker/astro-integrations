@@ -37,7 +37,7 @@ import type { Loader } from "astro/loaders";
 
 type ApiVersion = InstanceType<typeof TSGhostContentAPI>["version"];
 
-function createParser(opts?: AstroConfig) {
+function createGhostBodyParser(opts?: AstroConfig) {
   return unified().use(rehypeParse, { fragment: true })
     .use(rehypeAnchorRewrite)
     .use(rehypeCollectImages, opts?.image)
@@ -45,6 +45,13 @@ function createParser(opts?: AstroConfig) {
       themes: { light: "catppuccin-latte", dark: "catppuccin-mocha" },
     })
     .use(rehypeImages)
+    .use(rehypeGhostVideoCard)
+    .use(rehypeStringify);
+}
+
+function createBasicGhostBodyParser() {
+  return unified().use(rehypeParse, { fragment: true })
+    .use(rehypeAnchorRewrite)
     .use(rehypeGhostVideoCard)
     .use(rehypeStringify);
 }
@@ -70,7 +77,8 @@ export function ghostLoader({
     load: async (context) => {
       const { logger, parseData, store, config } = context;
 
-      const parser = createParser(config);
+      const parser = createGhostBodyParser(config);
+      const basicParser = createBasicGhostBodyParser();
 
       logger.info("Fetching posts from Ghost Content API");
 
@@ -96,11 +104,16 @@ export function ghostLoader({
           data: post as Post,
         });
 
-        const result = await parser.process(parsedPost.html.trim());
+        const body = parsedPost.html.trim();
+        const result = await parser.process(body);
+        const basicResult = await basicParser.process(body);
 
         store.set({
           id: parsedPost.id,
-          data: parsedPost,
+          data: {
+            ...parsedPost,
+            basicHtml: String(basicResult.value),
+          },
           rendered: {
             html: String(result.value),
             metadata: {

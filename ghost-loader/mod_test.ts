@@ -11,7 +11,7 @@ function postFixture(overrides: Record<string, unknown> = {}) {
     meta_title: null,
     meta_description: null,
     title: "Hello World",
-    html: "<p>Hello</p>",
+    html: '<p>Hello</p><img src="images/photo.jpg" width="120" height="80">',
     plaintext: "Hello",
     comment_id: null,
     feature_image: null,
@@ -93,6 +93,14 @@ Deno.test("ghostLoader stores entries that validate against its schema", async (
 
     if (parsed.title !== "Hello World") {
       throw new Error(`Unexpected post title: ${parsed.title}`);
+    }
+
+    if (!parsed.basicHtml?.includes('<img src="images/photo.jpg"')) {
+      throw new Error("Expected basic HTML to contain the original image");
+    }
+
+    if (parsed.basicHtml.includes("__ASTRO_IMAGE_")) {
+      throw new Error("Expected basic HTML to skip image optimization");
     }
 
     if (entries[0].filePath !== "https://ghost.example.com/hello-world/") {
