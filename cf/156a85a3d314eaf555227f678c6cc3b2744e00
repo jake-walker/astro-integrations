@@ -1,0 +1,29 @@
+ghost-loader/mod.ts
+  s_a1a575f75a79a1::t_a2dd5cb32696de 3-5,15-21,83-85,87
+  s_a1a575f75a79a1::t_0d38b68c42d380 38,50-60,62,72,74,94-95,104-105
+ghost-loader/rehype.ts
+  s_a1a575f75a79a1::t_03dfd58b4689c9 17,19,21-23,30,43-44,47-50
+  s_a1a575f75a79a1::t_5e4ac089cf8d56 18,20,24-29
+ghost-loader/mod_test.ts
+  s_a1a575f75a79a1::t_50132dfb7ba2fe 119
+  s_a1a575f75a79a1::t_39453836a9b95a 177-179,183-187
+  s_a1a575f75a79a1::t_f729457c86113a 14-15,107-114,134-176,180-182,188-189
+  s_a1a575f75a79a1::t_0829e2d11897ae 190-192
+  s_a1a575f75a79a1::t_97c312e2c2ad0d 193
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "cf156a85a3d314eaf555227f678c6cc3b2744e00",
+  "prompts": {},
+  "sessions": {
+    "s_a1a575f75a79a1": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019ffc13-6ac5-70e0-8733-5c84ae2c2ff2",
+        "model": "gpt-5.5"
+      },
+      "human_author": "Jake Walker <hi@jakew.me>"
+    }
+  }
+}
