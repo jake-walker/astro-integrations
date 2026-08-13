@@ -1,0 +1,31 @@
+ghost-loader/rehype.ts
+  s_a1a575f75a79a1::t_c5f5b670f1e116 2,16-19,21-23,28-31,49,54-67,71-73,75,81,88,94-97,103-105,112-115,118-120,131-133,135,139,147,149,159,167
+  s_a1a575f75a79a1::t_ccb5069735db02 3
+README.md
+  s_a1a575f75a79a1::t_c5f5b670f1e116 3-4,6-9
+deno.json
+  s_a1a575f75a79a1::t_49530a7aa1a2ee 6-10
+git-repo-loader/mod.ts
+  s_a1a575f75a79a1::t_c5f5b670f1e116 41,52-54,57,71-76,93-94,99-100,111-113,121-123,140-141,146-147
+ghost-loader/mod.ts
+  s_a1a575f75a79a1::t_e2ce28b3c48aea 23,96
+  s_a1a575f75a79a1::t_c5f5b670f1e116 28-33,44-46,63-64,80,84-88,107-111,116-117
+ghost-loader/schema.ts
+  s_a1a575f75a79a1::t_c5f5b670f1e116 4-9,82,100
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "c45ddd3976b420116cbd8efef209feaf233386a6",
+  "prompts": {},
+  "sessions": {
+    "s_a1a575f75a79a1": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019ffc13-6ac5-70e0-8733-5c84ae2c2ff2",
+        "model": "gpt-5.5"
+      },
+      "human_author": "Jake Walker <hi@jakew.me>"
+    }
+  }
+}
