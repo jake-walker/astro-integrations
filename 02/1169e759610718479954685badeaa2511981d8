@@ -1,0 +1,41 @@
+ghost-loader/mod_test.ts
+  s_a1a575f75a79a1::t_26649747c76fa9 1-116
+git-repo-loader/deno.json
+  s_a1a575f75a79a1::t_2462a20409d8a5 5-6,10-11
+  s_a1a575f75a79a1::t_fe6f71667ca164 7-9
+ghost-loader/deno.json
+  s_a1a575f75a79a1::t_26649747c76fa9 5-6,10-11
+  s_a1a575f75a79a1::t_fe6f71667ca164 7-9
+test-utils.ts
+  s_a1a575f75a79a1::t_34bf8f331a3061 32
+  s_a1a575f75a79a1::t_384142bf8a5dbd 1-31,33-71
+.github/workflows/ci.yml
+  s_a1a575f75a79a1::t_cb2926aaae19fc 32
+  s_a1a575f75a79a1::t_2a464c983d59a8 33
+  s_a1a575f75a79a1::t_18437074dec780 30,37
+  s_a1a575f75a79a1::t_a0a68dde3efae5 31
+git-repo-loader/mod_test.ts
+  s_a1a575f75a79a1::t_21ecc7f9156967 29-31,44-46,49-52,96-98
+  s_a1a575f75a79a1::t_29872c86e46782 2-3
+  s_a1a575f75a79a1::t_0d26506279da47 1
+  s_a1a575f75a79a1::t_80f62cabe4ce28 41,93
+  s_a1a575f75a79a1::t_ec17d7839fab85 5-18,20-22,24-28,32-40,42-43,47-48,53-55,61-63,65-68,70-92,94-95,99-100,106-108,110-111
+  s_a1a575f75a79a1::t_b490d144d18c75 19,23,56-60,64,69,101-105,109
+  s_a1a575f75a79a1::t_384142bf8a5dbd 4
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "021169e759610718479954685badeaa2511981d8",
+  "prompts": {},
+  "sessions": {
+    "s_a1a575f75a79a1": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019ffc13-6ac5-70e0-8733-5c84ae2c2ff2",
+        "model": "gpt-5.5"
+      },
+      "human_author": null
+    }
+  }
+}
