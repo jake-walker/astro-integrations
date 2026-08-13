@@ -3,6 +3,11 @@
     "ghost-loader",
     "git-repo-loader"
   ],
+  "fmt": {
+    "exclude": [
+      "**/CHANGELOG.md"
+    ]
+  },
   "imports": {
     "astro": "npm:astro@^7.2.1"
   }

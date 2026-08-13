@@ -20,11 +20,17 @@
 
 import { TSGhostContentAPI } from "@ts-ghost/content-api";
 import { postsSchema } from "./schema.ts";
+import type { Post } from "./schema.ts";
 import { unified } from "unified";
 import rehypeParse from "rehype-parse";
 import rehypeStringify from "rehype-stringify";
 import rehypeShiki from "@shikijs/rehype";
-import { rehypeAnchorRewrite, rehypeCollectImages, rehypeImages, rehypeGhostVideoCard } from "./rehype.ts";
+import {
+  rehypeAnchorRewrite,
+  rehypeCollectImages,
+  rehypeGhostVideoCard,
+  rehypeImages,
+} from "./rehype.ts";
 import type { AstroConfig } from "astro";
 import { AstroError } from "astro/errors";
 import type { Loader } from "astro/loaders";
@@ -35,7 +41,9 @@ function createParser(opts?: AstroConfig) {
   return unified().use(rehypeParse, { fragment: true })
     .use(rehypeAnchorRewrite)
     .use(rehypeCollectImages, opts?.image)
-    .use(rehypeShiki, { themes: { light: 'catppuccin-latte', dark: 'catppuccin-mocha' } })
+    .use(rehypeShiki, {
+      themes: { light: "catppuccin-latte", dark: "catppuccin-mocha" },
+    })
     .use(rehypeImages)
     .use(rehypeGhostVideoCard)
     .use(rehypeStringify);
@@ -52,8 +60,8 @@ function createParser(opts?: AstroConfig) {
 export function ghostLoader({
   url,
   contentApiKey,
-  apiVersion = "v6.0"
-}: { url: string, contentApiKey: string, apiVersion?: ApiVersion }): Loader {
+  apiVersion = "v6.0",
+}: { url: string; contentApiKey: string; apiVersion?: ApiVersion }): Loader {
   const client = new TSGhostContentAPI(url, contentApiKey, apiVersion);
 
   return {
@@ -69,11 +77,15 @@ export function ghostLoader({
       const res = await client.posts.browse({
         order: "published_at DESC",
         include: ["authors", "tags"],
-        limit: "all"
+        limit: "all",
       }).fetch();
 
       if (!res.success) {
-        throw new AstroError(`Failed to fetch Ghost posts: ${res.errors.map((e) => e.message).join(", ")}`);
+        throw new AstroError(
+          `Failed to fetch Ghost posts: ${
+            res.errors.map((e) => e.message).join(", ")
+          }`,
+        );
       }
 
       const posts = res.data;
@@ -81,7 +93,7 @@ export function ghostLoader({
       for (const post of posts) {
         const parsedPost = await parseData({
           id: post.id,
-          data: post as any,
+          data: post as Post,
         });
 
         const result = await parser.process(parsedPost.html.trim());
@@ -92,12 +104,15 @@ export function ghostLoader({
           rendered: {
             html: String(result.value),
             metadata: {
-              imagePaths: [...(result.data.astro?.localImagePaths || []), ...(result.data.astro?.remoteImagePaths || [])]
-            }
+              imagePaths: [
+                ...(result.data.astro?.localImagePaths || []),
+                ...(result.data.astro?.remoteImagePaths || []),
+              ],
+            },
           },
           filePath: parsedPost.url,
         });
       }
-    }
-  }
+    },
+  };
 }

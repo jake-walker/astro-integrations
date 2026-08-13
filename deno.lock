@@ -1769,11 +1769,11 @@
     }
   },
   "workspace": {
+    "dependencies": [
+      "npm:astro@^7.2.1"
+    ],
     "members": {
       "ghost-loader": {
-        "dependencies": [
-          "npm:astro@^7.2.1"
-        ],
         "packageJson": {
           "dependencies": [
             "npm:@shikijs/rehype@^4.4.3",

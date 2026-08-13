@@ -1,12 +1,12 @@
 import { z } from "astro/zod";
 
 const ghostVisibilitySchema = z.union([
-  z.literal('public'),
-  z.literal('members'),
-  z.literal('none'),
-  z.literal('internal'),
-  z.literal('paid'),
-  z.literal('tiers'),
+  z.literal("public"),
+  z.literal("members"),
+  z.literal("none"),
+  z.literal("internal"),
+  z.literal("paid"),
+  z.literal("tiers"),
 ]);
 
 const ghostIdentitySchema = z.object({
@@ -56,7 +56,6 @@ const ghostSocialMediaSchema = z.object({
   twitter_description: z.string().nullable(),
 });
 
-
 const tagsSchema = z.object({
   ...ghostIdentitySchema.shape,
   ...ghostMetadataSchema.shape,
@@ -80,7 +79,7 @@ export const postsSchema = z.object({
   ...ghostIdentitySchema.shape,
   ...ghostMetadataSchema.shape,
   title: z.string(),
-  html: z.string().catch(''),
+  html: z.string().catch(""),
   plaintext: z.string().nullish(),
   comment_id: z.string().nullable(),
   feature_image: z.string().nullable(),
@@ -98,7 +97,7 @@ export const postsSchema = z.object({
   primary_author: postsAuthorSchema.nullish(),
   primary_tag: tagsSchema.nullish(),
   url: z.string(),
-  excerpt: z.string().catch(''),
+  excerpt: z.string().catch(""),
   reading_time: z.number().optional().default(0),
   created_at: z.string(),
   updated_at: z.string().nullish(),

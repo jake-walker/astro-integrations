@@ -38,7 +38,7 @@ const RepoSchema = z.object({
   archived: z.boolean(),
   created_at: z.coerce.date(),
   pushed_at: z.coerce.date(),
-  fork: z.boolean()
+  fork: z.boolean(),
 });
 
 /**
@@ -49,10 +49,12 @@ const RepoSchema = z.object({
  * @param config Configuration for the loader. It is an object that must contain a username, and can optionally include an API key for higher rate limits.
  * @returns {Loader} A loader for use in an Astro content collection config.
  */
-export function githubRepoLoader({ apiKey, username }: { apiKey?: string, username: string }): Loader {
+export function githubRepoLoader(
+  { apiKey, username }: { apiKey?: string; username: string },
+): Loader {
   const headers: HeadersInit = {
     "X-GitHub-Api-Version": "2022-11-28",
-    "Accept": "application/vnd.github+json"
+    "Accept": "application/vnd.github+json",
   };
 
   if (apiKey !== undefined) {
@@ -66,9 +68,12 @@ export function githubRepoLoader({ apiKey, username }: { apiKey?: string, userna
       let page = 1;
 
       while (true) {
-        const res = await fetch(`https://api.github.com/users/${username}/repos?page=${page}`, {
-          headers
-        });
+        const res = await fetch(
+          `https://api.github.com/users/${username}/repos?page=${page}`,
+          {
+            headers,
+          },
+        );
 
         if (!res.ok) {
           break;
@@ -80,20 +85,19 @@ export function githubRepoLoader({ apiKey, username }: { apiKey?: string, userna
           break;
         }
 
-
         for (const item of resJson) {
           const repo = z.parse(RepoSchema, item);
 
           store.set({
             id: repo.full_name,
-            data: repo
-          })
+            data: repo,
+          });
         }
 
         page++;
       }
-    }
-  }
+    },
+  };
 }
 
 /**
@@ -104,7 +108,9 @@ export function githubRepoLoader({ apiKey, username }: { apiKey?: string, userna
  * @param config Configuration for the loader. It is an object that must contain a username and URL to the Forgejo instance.
  * @returns {Loader} A loader for use in an Astro content collection config.
  */
-export function forgejoRepoLoader({ baseUrl, username }: { baseUrl: string, username: string }): Loader {
+export function forgejoRepoLoader(
+  { baseUrl, username }: { baseUrl: string; username: string },
+): Loader {
   return {
     name: "forgejo-repos",
     schema: RepoSchema,
@@ -112,7 +118,9 @@ export function forgejoRepoLoader({ baseUrl, username }: { baseUrl: string, user
       let page = 1;
 
       while (true) {
-        const res = await fetch(new URL(`/api/v1/users/${username}/repos?page=${page}`, baseUrl));
+        const res = await fetch(
+          new URL(`/api/v1/users/${username}/repos?page=${page}`, baseUrl),
+        );
 
         if (!res.ok) {
           break;
@@ -129,12 +137,12 @@ export function forgejoRepoLoader({ baseUrl, username }: { baseUrl: string, user
 
           store.set({
             id: repo.full_name,
-            data: repo
-          })
+            data: repo,
+          });
         }
 
         page++;
       }
-    }
-  }
+    },
+  };
 }
