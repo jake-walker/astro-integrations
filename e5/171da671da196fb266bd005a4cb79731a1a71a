@@ -1,0 +1,24 @@
+ghost-loader/rehype.ts
+  s_a1a575f75a79a1::t_4a4a0aa2751aa9 7-14
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "e5171da671da196fb266bd005a4cb79731a1a71a",
+  "prompts": {},
+  "humans": {
+    "h_2463f6ed1216b2": {
+      "author": "Jake Walker <hi@jakew.me>"
+    }
+  },
+  "sessions": {
+    "s_a1a575f75a79a1": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019ffc13-6ac5-70e0-8733-5c84ae2c2ff2",
+        "model": "gpt-5.5"
+      },
+      "human_author": "Jake Walker <hi@jakew.me>"
+    }
+  }
+}
