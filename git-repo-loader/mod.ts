@@ -25,21 +25,9 @@
  * @module
  */
 
-import { z } from "astro/zod";
 import type { Loader } from "astro/loaders";
-
-const RepoSchema = z.object({
-  id: z.string(),
-  description: z.string().nullable(),
-  full_name: z.string(),
-  html_url: z.string(),
-  language: z.string().nullable(),
-  name: z.string(),
-  archived: z.boolean(),
-  created_at: z.coerce.date(),
-  pushed_at: z.coerce.date(),
-  fork: z.boolean(),
-});
+import { z } from "astro/zod";
+import { type Repo, repoSchema } from "./schema.ts";
 
 /**
  * Create a new Astro content collection loader for GitHub repositories of a user.
@@ -63,7 +51,7 @@ export function githubRepoLoader(
 
   return {
     name: "github-repos",
-    schema: RepoSchema,
+    schema: repoSchema,
     load: async ({ store }) => {
       let page = 1;
 
@@ -86,7 +74,7 @@ export function githubRepoLoader(
         }
 
         for (const item of resJson) {
-          const repo = z.parse(RepoSchema, item);
+          const repo: Repo = z.parse(repoSchema, item);
 
           store.set({
             id: repo.full_name,
@@ -113,7 +101,7 @@ export function forgejoRepoLoader(
 ): Loader {
   return {
     name: "forgejo-repos",
-    schema: RepoSchema,
+    schema: repoSchema,
     load: async ({ store }) => {
       let page = 1;
 
@@ -133,7 +121,7 @@ export function forgejoRepoLoader(
         }
 
         for (const item of resJson) {
-          const repo = z.parse(RepoSchema, item);
+          const repo: Repo = z.parse(repoSchema, item);
 
           store.set({
             id: repo.full_name,
