@@ -1,0 +1,16 @@
+ghost-loader/deno.json
+  h_2463f6ed1216b2 4
+git-repo-loader/deno.json
+  h_2463f6ed1216b2 4
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "045740564d6615ec77d711670038fe9256d95304",
+  "prompts": {},
+  "humans": {
+    "h_2463f6ed1216b2": {
+      "author": "Jake Walker <hi@jakew.me>"
+    }
+  }
+}
