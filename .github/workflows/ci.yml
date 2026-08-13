@@ -1,0 +1,38 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x
+
+      - name: Check formatting
+        run: deno fmt --check
+
+      - name: Lint
+        run: deno lint
+
+      - name: Typecheck
+        run: deno check ghost-loader/mod.ts git-repo-loader/mod.ts
+
+      - name: Check ghost-loader package
+        working-directory: ghost-loader
+        run: deno publish --dry-run --allow-dirty
+
+      - name: Check git-repo-loader package
+        working-directory: git-repo-loader
+        run: deno publish --dry-run --allow-dirty
