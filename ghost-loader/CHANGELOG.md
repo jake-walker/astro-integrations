@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.0](https://github.com/jake-walker/astro-integrations/compare/ghost-loader-v0.3.0...ghost-loader-v0.4.0) (2026-08-13)
+
+
+### Features
+
+* **ghost-loader:** configurable anchor rewrite ([cf156a8](https://github.com/jake-walker/astro-integrations/commit/cf156a85a3d314eaf555227f678c6cc3b2744e00))
+
 ## [0.3.0](https://github.com/jake-walker/astro-integrations/compare/ghost-loader-v0.2.0...ghost-loader-v0.3.0) (2026-08-13)
 
 
